@@ -149,13 +149,13 @@ You can trigger reports manually without waiting for the scheduled time:
 
 ```bash
 # Generate a daily report
-docker exec -it solar-assistant-email-scheduler python -c "from app.report_generator import generate_and_send_report; generate_and_send_report('daily')"
+docker exec -it solarassistant-reports python -c "from app.report_generator import generate_and_send_report; generate_and_send_report('daily')"
 
 # Generate a weekly report
-docker exec -it solar-assistant-email-scheduler python -c "from app.report_generator import generate_and_send_report; generate_and_send_report('weekly')"
+docker exec -it solarassistant-reports python -c "from app.report_generator import generate_and_send_report; generate_and_send_report('weekly')"
 
 # Generate a monthly report
-docker exec -it solar-assistant-email-scheduler python -c "from app.report_generator import generate_and_send_report; generate_and_send_report('monthly')"
+docker exec -it solarassistant-reports python -c "from app.report_generator import generate_and_send_report; generate_and_send_report('monthly')"
 ```
 
 ## Report Formats
