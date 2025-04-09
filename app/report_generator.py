@@ -350,7 +350,7 @@ def create__content(rows):
         return ""
     
     output = io.StringIO()
-    writer = .DictWriter(output, fieldnames=rows[0].keys())
+    writer = csv.DictWriter(output, fieldnames=rows[0].keys())
     writer.writeheader()
     writer.writerows(rows)
     
