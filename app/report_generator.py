@@ -26,7 +26,7 @@ def get_daily_data(cursor, date):
     Get energy data for a specific day.
     Returns the first and last readings of the day for each energy metric.
     """
-    # Define the metrics you want to track
+    # Define the metrics we want to track
     energy_metrics = [
         'battery_energy_in',
         'battery_energy_out',
@@ -93,7 +93,7 @@ def generate_daily_report(cursor, date):
     """
     print(f"Generating daily report for {date.strftime('%Y-%m-%d')}...")
     
-    # Define the metrics you want to track
+    # Define the metrics we want to track
     energy_metrics = [
         'battery_energy_in',
         'battery_energy_out',
@@ -126,7 +126,7 @@ def generate_daily_report(cursor, date):
         else:
             day_data[metric] = 0.0
     
-    # Create a row for the  with just the daily totals
+    # Create a row for the CSV with just the daily totals
     row = {
         'Date': date.strftime('%Y-%m-%d'),
         'Load (kWh)': round(day_data.get('load_energy', 0.0), 2),
@@ -268,7 +268,7 @@ def generate_monthly_report(cursor, end_date):
     month_start = start_date.replace(hour=0, minute=0, second=0, microsecond=0)
     month_end = end_date.replace(hour=23, minute=59, second=59, microsecond=999999)
     
-    # Define the metrics you want to track
+    # Define the metrics we want to track
     energy_metrics = [
         'battery_energy_in',
         'battery_energy_out',
@@ -342,9 +342,9 @@ def generate_monthly_report(cursor, end_date):
     print("Monthly report generation complete!")
     return rows
 
-def create__content(rows):
+def create_csv_content(rows):
     """
-    Create  content from the rows data.
+    Create CSV content from the rows data.
     """
     if not rows:
         return ""
@@ -354,10 +354,10 @@ def create__content(rows):
     writer.writeheader()
     writer.writerows(rows)
     
-    _content = output.getvalue()
+    csv_content = output.getvalue()
     output.close()
     
-    return _content
+    return csv_content
 
 def create_html_table(rows):
     """
@@ -398,11 +398,11 @@ def create_html_table(rows):
 
 def generate_and_send_report(period="daily"):
     """
-    Generates and sends an HTML report (with a  attachment) for the specified period.
+    Generates and sends an HTML report (with a CSV attachment) for the specified period.
     'period' can be "daily", "weekly", or "monthly".
     
     The HTML report shows a summary table using only the metrics the user has configured (via METRIC_* in the .env),
-    and the  provides energy totals for the reporting period.
+    and the CSV provides energy totals for the reporting period.
     """
     print(f"📋 Starting {period} report generation...")
     try:
@@ -459,7 +459,7 @@ def generate_and_send_report(period="daily"):
         
         print(f"✅ Found {len(rows)} rows of data.")
         
-        # Generate energy report data for  attachment
+        # Generate energy report data for CSV attachment
         if period == "daily":
             report_rows = [generate_daily_report(cursor, now)]
         elif period == "weekly":
@@ -572,7 +572,7 @@ def generate_and_send_report(period="daily"):
       <li><strong>Battery Charge Power from AC (W):</strong> Power drawn from AC to charge the battery.</li>
     </ul>
     <p style="font-size:12px;">The CSV attachment contains detailed energy totals for the {period.capitalize()} period.</p>
-    <p style="font-size:12px;color:gray;">Generated automatically by Email scheduler for Solar Assistant 🌞</p>
+    <p style="font-size:12px;color:gray;">Generated automatically by Email Scheduler for Solar Assistant 🌞</p>
   </body>
 </html>
 """
