@@ -74,7 +74,7 @@ All configuration is done through the `.env` file. Here are the available settin
 
 ### MQTT Settings
 ```
-MQTT_BROKER=192.168.20.60
+MQTT_BROKER=192.168.0.1
 MQTT_PORT=1883
 MQTT_USERNAME=solarassistant
 MQTT_PASSWORD=password
