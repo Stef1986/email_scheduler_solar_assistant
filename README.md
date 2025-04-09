@@ -26,7 +26,7 @@ This application generates and emails customizable reports about your solar ener
 ## Report Contents
 
 ### Email Reports
-The email includes a summary table with **Min, Max, and Average values** for the metrics you've selected in your configuration. The email also provides explanations of what each metric means and information about the reporting period.
+The email includes a summary table with **Min, Max, and Average values** for the metrics you've selected in your configuration. This summary metrics in the body of the email are the realtime stats at the time of running the report. The email also provides explanations of what each metric means and information about the reporting period.
 
 ### CSV Reports
 The CSV attachment provides standardized energy totals in these columns:
