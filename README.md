@@ -49,7 +49,7 @@ These represent cumulative energy values for each component of your solar system
 1. Clone the repository:
    ```bash
    git clone https://github.com/Stef1986/email_scheduler_solar_assistant.git
-   cd solar-assistant-email-scheduler
+   cd email_scheduler_solar_assistant
    ```
 
 2. Copy the example environment file and customize it with your settings:
