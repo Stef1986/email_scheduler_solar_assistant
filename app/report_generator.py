@@ -550,6 +550,8 @@ def generate_and_send_report(period="daily"):
         <td>{round(avg_val, 2)}</td>
       </tr>
 """
+        
+        # Add the legend explanation
         html += """
     </table>
     <br>
@@ -571,7 +573,13 @@ def generate_and_send_report(period="daily"):
       <li><strong>Battery Current (A):</strong> The current entering or leaving the battery.</li>
       <li><strong>Battery Charge Power from AC (W):</strong> Power drawn from AC to charge the battery.</li>
     </ul>
-    <p style="font-size:12px;">The CSV attachment contains detailed energy totals for the {period.capitalize()} period.</p>
+"""
+        
+        # Add the period info and footer
+        period_info = f"<p style=\"font-size:12px;\">The CSV attachment contains detailed energy totals for the {period.capitalize()} period.</p>"
+        html += period_info
+        
+        html += """
     <p style="font-size:12px;color:gray;">Generated automatically by Email Scheduler for Solar Assistant 🌞</p>
   </body>
 </html>
