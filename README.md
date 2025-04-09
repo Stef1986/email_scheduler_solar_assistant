@@ -222,4 +222,6 @@ For questions, issues, or feature requests, please contact the author, Stefan Ve
 
 ## License
 
-Copyright © 2025 Stefan Verster. All rights reserved. This code may not be distributed without the explicit consent of the author.
+This code is available for personal and non-commercial use.
+If you find this software useful, please consider supporting the author by making a donation:
+https://www.paypal.com/donate/?hosted_button_id=2YZ4F42REQX4C
