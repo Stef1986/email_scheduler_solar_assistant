@@ -19,6 +19,8 @@ import mimetypes
 from config.config import Config
 
 def send_email(subject, body, attachments=None):
+    email_sent = False  # Flag to track if email was sent
+    
     try:
         # Create a multipart message.
         msg = MIMEMultipart()
@@ -45,13 +47,19 @@ def send_email(subject, body, attachments=None):
                 part.add_header('Content-Disposition', 'attachment', filename=filename)
                 msg.attach(part)
                 
-        with smtplib.SMTP(Config.EMAIL_SMTP, Config.EMAIL_PORT) as server:
-            server.starttls()
-            server.login(Config.EMAIL_USERNAME, Config.EMAIL_PASSWORD)
-            server.sendmail(Config.EMAIL_USERNAME, recipients, msg.as_string())
+        # Connect to the SMTP server and send the email
+        server = smtplib.SMTP(Config.EMAIL_SMTP, Config.EMAIL_PORT)
+        server.starttls()
+        server.login(Config.EMAIL_USERNAME, Config.EMAIL_PASSWORD)
+        server.sendmail(Config.EMAIL_USERNAME, recipients, msg.as_string())
+        server.quit()
         
-        # Only print success message if all the above operations succeeded
-        print(f"✅ Email sent successfully to {len(recipients)} recipients!")
+        # If we get here without exceptions, the email was sent successfully
+        email_sent = True
         
     except Exception as e:
         print(f"❌ Error sending email: {e}")
+    
+    # Only print success message if email was actually sent
+    if email_sent:
+        print(f"✅ Email sent successfully to {len(recipients)} recipients!")
