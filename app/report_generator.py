@@ -575,20 +575,26 @@ def generate_and_send_report(period="daily"):
     </ul>
 """
         
-        # Add the period info and footer
+        # Prepare period info for CSV attachments
         period_info = f"<p style=\"font-size:12px;\">The CSV attachment contains detailed energy totals for the {period.capitalize()} period.</p>"
-        html += period_info
         
+        # Add CSV info only if CSV_REPORT is enabled
+        if Config.CSV_REPORT == "1":
+            html += period_info
+        
+        # Add footer
         html += """
     <p style="font-size:12px;color:gray;">Generated automatically by Email Scheduler for Solar Assistant 🌞</p>
   </body>
 </html>
 """
         
-        # Create CSV attachment with energy totals
-        csv_content = create_csv_content(report_rows)
-        filename = f"solar_report_{period}_{now.strftime('%Y-%m-%d')}.csv"
-        attachments = [(filename, csv_content, "text/csv")]
+        # Create CSV attachment with energy totals only if CSV_REPORT is enabled
+        attachments = None
+        if Config.CSV_REPORT == "1":
+            csv_content = create_csv_content(report_rows)
+            filename = f"solar_report_{period}_{now.strftime('%Y-%m-%d')}.csv"
+            attachments = [(filename, csv_content, "text/csv")]
         
         print("📤 Sending email...")
         send_email(subject=email_subject,
