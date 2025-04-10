@@ -49,7 +49,8 @@ def send_email(subject, body, attachments=None):
             server.starttls()
             server.login(Config.EMAIL_USERNAME, Config.EMAIL_PASSWORD)
             server.sendmail(Config.EMAIL_USERNAME, recipients, msg.as_string())
-            
+        
+        # Only print success message if all the above operations succeeded
         print(f"✅ Email sent successfully to {len(recipients)} recipients!")
         
     except Exception as e:
