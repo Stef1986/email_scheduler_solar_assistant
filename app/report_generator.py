@@ -597,10 +597,11 @@ def generate_and_send_report(period="daily"):
             attachments = [(filename, csv_content, "text/csv")]
         
         print("📤 Sending email...")
-        send_email(subject=email_subject,
-                   body=html,
-                   attachments=attachments)
-        print("✅ Email sent successfully!")
+        # Send email and get result - no printing of success message here
+        email_success = send_email(subject=email_subject,
+                                  body=html,
+                                  attachments=attachments)
+        # No success message here since emailer.py will handle that
 
     except Exception as e:
         print(f"❌ Error generating report: {e}")
