@@ -10,7 +10,6 @@ https://www.paypal.com/donate/?hosted_button_id=2YZ4F42REQX4C
 
 Thank you for your support!
 """
-
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
@@ -25,11 +24,14 @@ def send_email(subject, body, attachments=None):
         msg = MIMEMultipart()
         msg['Subject'] = subject
         msg['From'] = Config.EMAIL_USERNAME
-        msg['To'] = Config.EMAIL_TO
-
+        
+        # Handle multiple recipients with whitespace handling
+        recipients = [email.strip() for email in Config.EMAIL_TO.split(',')]
+        msg['To'] = ', '.join(recipients)
+        
         # Attach the HTML body.
         msg.attach(MIMEText(body, 'html'))
-
+        
         # Process attachments if provided.
         if attachments:
             for filename, content, mime_type in attachments:
@@ -42,11 +44,13 @@ def send_email(subject, body, attachments=None):
                 encoders.encode_base64(part)
                 part.add_header('Content-Disposition', 'attachment', filename=filename)
                 msg.attach(part)
-
+                
         with smtplib.SMTP(Config.EMAIL_SMTP, Config.EMAIL_PORT) as server:
             server.starttls()
             server.login(Config.EMAIL_USERNAME, Config.EMAIL_PASSWORD)
-            server.sendmail(Config.EMAIL_USERNAME, Config.EMAIL_TO, msg.as_string())
-
+            server.sendmail(Config.EMAIL_USERNAME, recipients, msg.as_string())
+            
+        print(f"✅ Email sent successfully to {len(recipients)} recipients!")
+        
     except Exception as e:
         print(f"❌ Error sending email: {e}")
