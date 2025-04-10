@@ -25,7 +25,7 @@ def send_email(subject, body, attachments=None):
         msg['Subject'] = subject
         msg['From'] = Config.EMAIL_USERNAME
         
-        # Handle multiple recipients with whitespace handling
+        # Handle multiple recipients including whitespace handling
         recipients = [email.strip() for email in Config.EMAIL_TO.split(',')]
         msg['To'] = ', '.join(recipients)
         
