@@ -89,6 +89,13 @@ EMAIL_PASSWORD=password
 EMAIL_TO=to_email_address
 ```
 
+The EMAIL_TO field supports both single and multiple recipients:
+
+For a single recipient: EMAIL_TO=recipient@example.com
+For multiple recipients: EMAIL_TO=recipient1@example.com, recipient2@example.com, recipient3@example.com
+
+You can add as many email addresses as needed, separated by commas. The system will send the same report to all recipients simultaneously.
+
 ### Database Location
 ```
 DATABASE_PATH=data/solar_assistant.db
